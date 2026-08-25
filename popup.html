@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zendesk Markdown Paste</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      width: 280px;
+      padding: 16px;
+      margin: 0;
+      color: #1f2937;
+    }
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h1 .badge {
+      font-size: 10px;
+      background: #22c55e;
+      color: #fff;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-weight: 500;
+    }
+    p {
+      font-size: 12px;
+      color: #6b7280;
+      margin: 0 0 12px;
+      line-height: 1.5;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    td {
+      padding: 4px 6px;
+      vertical-align: top;
+    }
+    td:first-child {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      background: #f3f4f6;
+      border-radius: 4px;
+      white-space: nowrap;
+      color: #374151;
+    }
+    td:last-child {
+      color: #6b7280;
+      padding-left: 10px;
+    }
+    tr + tr td {
+      padding-top: 6px;
+    }
+    .footer {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #9ca3af;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Zendesk Markdown Paste <span class="badge">Active</span></h1>
+  <p>Paste markdown into any Zendesk comment field — it will be converted to rich text automatically.</p>
+
+  <table>
+    <tr><td>`code`</td><td>Inline code</td></tr>
+    <tr><td>```block```</td><td>Code block</td></tr>
+    <tr><td>**bold**</td><td>Bold</td></tr>
+    <tr><td>*italic*</td><td>Italic</td></tr>
+    <tr><td>~~strike~~</td><td>Strikethrough</td></tr>
+    <tr><td># H1 / ## H2</td><td>Headings</td></tr>
+    <tr><td>- item</td><td>Bullet list</td></tr>
+    <tr><td>1. item</td><td>Numbered list</td></tr>
+    <tr><td>> quote</td><td>Blockquote</td></tr>
+    <tr><td>[text](url)</td><td>Link</td></tr>
+  </table>
+
+  <div class="footer">Only activates when markdown patterns are detected.</div>
+</body>
+</html>
