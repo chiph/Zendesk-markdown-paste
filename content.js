@@ -140,6 +140,14 @@
       return `\x00CODE${codeSpans.length - 1}\x00`;
     });
 
+    // Strikethrough  ~~text~~
+    // Zendesk's editor has no strikethrough mark, so any <del>/<s>/<strike>
+    // tag (or text-decoration style) is stripped on paste. Instead, render the
+    // struck text with Unicode combining long-stroke-overlay characters, which
+    // survive as plain text in any editor. Done before escaping so the combining
+    // marks are applied to the visible characters, not HTML entities.
+    text = text.replace(/~~(.+?)~~/g, (_, struck) => strikeText(struck));
+
     // Escape HTML in the remaining text
     text = escapeHtml(text);
 
@@ -151,8 +159,6 @@
     // Italic  *text* or _text_
     text = text.replace(/\*(.+?)\*/g, "<em>$1</em>");
     text = text.replace(/_(.+?)_/g, "<em>$1</em>");
-    // Strikethrough  ~~text~~
-    text = text.replace(/~~(.+?)~~/g, "<del>$1</del>");
     // Links  [label](url)
     text = text.replace(
       /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
@@ -171,6 +177,19 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  /**
+   * Render text as strikethrough using the Unicode combining long stroke
+   * overlay (U+0336) after each visible character. This survives editors (like
+   * Zendesk's) that have no strikethrough formatting of their own. Array.from
+   * keeps astral characters (emoji, etc.) intact instead of splitting surrogate
+   * pairs.
+   */
+  function strikeText(str) {
+    return Array.from(str)
+      .map((ch) => ch + "\u0336")
+      .join("");
   }
 
   // ── Helpers ─────────────────────────────────────────────────────────────────

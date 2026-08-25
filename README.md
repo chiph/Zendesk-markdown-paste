@@ -26,7 +26,7 @@ With the extension, the markdown is correctly rendered, with no "cleanup" needed
 | `**bold**` or `__bold__` | Bold |
 | `*italic*` or `_italic_` | Italic |
 | `***text***` | Bold and italic |
-| `~~text~~` | Strikethrough |
+| `~~text~~` | Strikethrough (see note) |
 | `# H1`, `## H2`, `### H3` | Headings |
 | `- item`, `* item`, `+ item` | Bulleted list |
 | `1. item` | Numbered list |
@@ -36,6 +36,11 @@ With the extension, the markdown is correctly rendered, with no "cleanup" needed
 
 Links are limited to HTTP and HTTPS URLs. Raw HTML is escaped rather than
 inserted into the editor.
+
+> **Note on strikethrough:** Zendesk's comment editor has no strikethrough
+> format of its own, so it strips any `<del>`/`<s>` HTML on paste. To make
+> strikethrough survive, `~~text~~` is rendered with Unicode combining
+> strike-through characters (e.g. `t̶e̶x̶t̶`) instead of an HTML tag.
 
 ## Install unpacked in Chrome
 
