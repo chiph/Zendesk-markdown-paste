@@ -8,6 +8,15 @@ the clipboard text contains a supported Markdown pattern, it converts the text
 to HTML and passes the paste back to Zendesk's editor. Plain-text pastes are
 left unchanged.
 
+Before, pasting markdown into a Zendesk comment field resulted in something like this:
+
+<img width="1522" height="302" alt="Screenshot 2026-08-25 at 11 56 04 AM" src="https://github.com/user-attachments/assets/22c25690-dde3-4bdd-b6d6-9607bd50d2d0" />
+
+With the extension, the markdown is correctly rendered, with no "cleanup" needed:
+
+<img width="1431" height="362" alt="Screenshot 2026-08-25 at 11 50 28 AM" src="https://github.com/user-attachments/assets/e8fdd43a-0cf6-4d4a-978d-627f0190aa06" />
+
+
 ## Supported Markdown
 
 | Markdown | Result |
