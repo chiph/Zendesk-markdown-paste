@@ -14,7 +14,7 @@ Before, pasting markdown into a Zendesk comment field resulted in something like
 
 With the extension, the markdown is correctly rendered, with no "cleanup" needed:
 
-<img width="1431" height="362" alt="Screenshot 2026-08-25 at 11 50 28 AM" src="https://github.com/user-attachments/assets/e8fdd43a-0cf6-4d4a-978d-627f0190aa06" />
+<img width="1399" height="254" alt="Screenshot 2026-08-25 at 1 25 50 PM" src="https://github.com/user-attachments/assets/5e7c3f0e-10cf-4cb5-8fc8-b29f0fc53b58" />
 
 
 ## Supported Markdown
