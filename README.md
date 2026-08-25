@@ -23,6 +23,7 @@ With the extension, the markdown is correctly rendered, with no "cleanup" needed
 | --- | --- |
 | `` `code` `` | Inline code |
 | ` ```code``` ` | Fenced code block |
+| Four-space or tab indentation | Indented code block |
 | `**bold**` or `__bold__` | Bold |
 | `*italic*` or `_italic_` | Italic |
 | `***text***` | Bold and italic |

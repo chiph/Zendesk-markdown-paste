@@ -5,7 +5,7 @@
  * markdown syntax to formatted HTML before insertion.
  *
  * Supported markdown:
- *   **bold**, *italic*, `inline code`, ```code block```,
+ *   **bold**, *italic*, `inline code`, fenced/indented code blocks,
  *   # Headings (h1–h3), - / * / 1. lists, > blockquote,
  *   [link](url), ---/*** horizontal rule
  */
@@ -35,6 +35,33 @@
 
     while (i < lines.length) {
       const line = lines[i];
+
+      // ── Indented code block ───────────────────────────────────────────────
+      if (/^( {4}|\t)/.test(line)) {
+        const codeLines = [];
+        while (i < lines.length) {
+          if (/^( {4}|\t)/.test(lines[i])) {
+            codeLines.push(escapeHtml(lines[i].replace(/^( {4}|\t)/, "")));
+            i++;
+            continue;
+          }
+
+          // Keep blank lines within a code block when another indented line
+          // follows; otherwise leave the blank line for paragraph handling.
+          if (
+            lines[i].trim() === "" &&
+            i + 1 < lines.length &&
+            /^( {4}|\t)/.test(lines[i + 1])
+          ) {
+            codeLines.push("");
+            i++;
+            continue;
+          }
+          break;
+        }
+        blocks.push(`<pre><code>${codeLines.join("\n")}</code></pre>`);
+        continue;
+      }
 
       // ── Fenced code block  ```...``` ──────────────────────────────────────
       if (/^```/.test(line)) {
@@ -199,7 +226,7 @@
    * worth converting (avoids interfering with plain-text pastes).
    */
   function looksLikeMarkdown(text) {
-    return /(`{1,3}|\*\*|__|\*[^*\s]|_[^_\s]|^#{1,3}\s|^[-*+]\s|\d+\.\s|^>\s|~~|\[.+\]\(https?:\/\/)/m.test(
+    return /(`{1,3}|\*\*|__|\*[^*\s]|_[^_\s]|^#{1,3}\s|^[-*+]\s|\d+\.\s|^>\s|^( {4}|\t)\S|~~|\[.+\]\(https?:\/\/)/m.test(
       text
     );
   }
