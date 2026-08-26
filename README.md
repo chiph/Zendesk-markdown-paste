@@ -1,7 +1,15 @@
 # Zendesk Markdown Paste
 
-A small Chrome Manifest V3 extension that converts Markdown into rich text when
+A small Manifest V3 browser extension that converts Markdown into rich text when
 pasting into Zendesk comment editors.
+
+The repository ships two builds of the same extension, one per browser:
+
+- [`chrome/`](chrome) — Chrome / Chromium (Edge, Brave, etc.)
+- [`firefox/`](firefox) — Firefox
+
+Both builds share identical `content.js` and `popup.html`; only the
+`manifest.json` differs (Firefox adds a `browser_specific_settings.gecko` id).
 
 The extension listens for paste events in Zendesk content-editable fields. When
 the clipboard text contains a supported Markdown pattern, it converts the text
@@ -49,12 +57,27 @@ inserted into the editor.
    location.
 2. Open `chrome://extensions`.
 3. Enable **Developer mode**.
-4. Click **Load unpacked** and choose the repository folder containing
+4. Click **Load unpacked** and choose the [`chrome/`](chrome) folder containing
    `manifest.json`.
 5. Open a Zendesk page and paste Markdown into a comment editor.
 
 When updating the extension files, use the reload button in
 `chrome://extensions`, then refresh the Zendesk tab.
+
+## Install temporarily in Firefox
+
+Because it is unsigned, an unpacked extension loads as a *temporary* add-on that
+is removed when Firefox restarts.
+
+1. Clone or download this repository.
+2. Open `about:debugging#/runtime/this-firefox`.
+3. Click **Load Temporary Add-on…**.
+4. Select the `manifest.json` file inside the [`firefox/`](firefox) folder.
+5. Open a Zendesk page and paste Markdown into a comment editor.
+
+When updating the extension files, click **Reload** on the add-on in
+`about:debugging`, then refresh the Zendesk tab. Firefox 128 or newer is
+required.
 
 ## Usage
 
@@ -81,6 +104,8 @@ requests and does not store clipboard or ticket content.
 This extension has no build step or dependencies. Validate its source with:
 
 ```sh
-node --check content.js
-python3 -c "import json; json.load(open('manifest.json'))"
+node --check chrome/content.js
+node --check firefox/content.js
+python3 -c "import json; json.load(open('chrome/manifest.json'))"
+python3 -c "import json; json.load(open('firefox/manifest.json'))"
 ```
